@@ -12,7 +12,7 @@
 #include <fstream>
 using namespace std;
 
-//#define OUTPUT_LEG_DATA
+#define OUTPUT_LEG_DATA
 
 /*
  * Bdebug plot
@@ -20,7 +20,7 @@ using namespace std;
 template <typename T>
 void LegController<T>::output2File(){
         ofstream leg_data;
-        leg_data.open("/home/allen/MiLAB-Cheetah-Software/debug_tools/leg_controller_data.txt", ios::app);
+        leg_data.open("/home/aminghanbarzadeh/IUST-Cheetah-Software/debug_tools/leg_controller_data.txt", ios::app);
         if (!leg_data.is_open()) {
             cout << "[LegController] Open leg_control_data.txt failed!" << endl;
         } else {
@@ -196,13 +196,16 @@ void LegController<T>::updateCommand(SpiCommand* spiCommand) {
 
     // forceFF
     Vec3<T> footForce = commands[leg].forceFeedForward;
-
+    
     // cartesian PD
     footForce +=
         commands[leg].kpCartesian * (commands[leg].pDes - datas[leg].p);
     footForce +=
         commands[leg].kdCartesian * (commands[leg].vDes - datas[leg].v);
-
+    //std::cout<<"footforceeeeeeeee \n"<<footForce<<std::endl;
+    // std::cout<<"kpcartesian"<<commands[leg].kpCartesian<<std::endl;
+    // std::cout<<"pdataaaaaas"<<datas[leg].p<<std::endl;
+    // std::cout<<"pdessssssss"<<commands[leg].pDes<<std::endl;
     // Torque
 //    if (_quadruped._robotType == RobotType::MILAB){
 //        Vec6<T> F,Tau;

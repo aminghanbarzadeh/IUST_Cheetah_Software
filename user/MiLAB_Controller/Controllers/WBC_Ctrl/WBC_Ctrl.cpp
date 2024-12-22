@@ -93,6 +93,7 @@ void WBC_Ctrl<T>::_UpdateLegCMD(ControlFSMData<T> & data){
   //Vec4<T> contact = data._stateEstimator->getResult().contactEstimate;
 
   for (size_t leg(0); leg < cheetah::num_leg; ++leg) {
+    //2printf("[wbccccccccccccccc] \n");
     cmd[leg].zero();
     for (size_t jidx(0); jidx < cheetah::num_leg_joint; ++jidx) {
       cmd[leg].tauFeedForward[jidx] = _tau_ff[cheetah::num_leg_joint * leg + jidx];

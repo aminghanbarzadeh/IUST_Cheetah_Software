@@ -30,6 +30,7 @@ void DesiredStateCommand<T>::convertToStateCommands() {
 
   // THIS SHOULD be DISABLE Soon
   if(parameters->use_rc) {
+    //printf("use_rcccccccccccccccccccccccccc");
     if(rcCommand->mode == RC_mode::QP_STAND){ // Stand
       joystickLeft[0] = 0.; // Y
       joystickLeft[1] = 0.;
@@ -59,6 +60,11 @@ void DesiredStateCommand<T>::convertToStateCommands() {
     joystickLeft = gamepadCommand->leftStickAnalog;
     joystickRight = gamepadCommand->rightStickAnalog;
     trigger_pressed = gamepadCommand->a;
+    ascending_trigger = gamepadCommand->x;
+    descending_trigger = gamepadCommand->b;
+    //ground_trigger = gamepadCommand->b;
+    cancel_trigger = gamepadCommand->rightBumper;
+    stair_trigger = gamepadCommand->y;
   }
   // Warning!!!!
   // Recommend not to use stateDes

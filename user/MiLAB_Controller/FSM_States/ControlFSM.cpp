@@ -96,59 +96,124 @@ void ControlFSM<T>::runFSM() {
   // Check the robot state for safe operation
   operatingMode = safetyPreCheck();
 
-  //  if(data.controlParameters->use_rc){
-  //    int rc_mode = data._desiredStateCommand->rcCommand->mode;
-  //    if(rc_mode == RC_mode::OFF){
-  //          printf("K_PASSIVE\n");
-  //          data.controlParameters->control_mode = K_PASSIVE;
-  //    }else if(rc_mode == RC_mode::RECOVERY_STAND){
-  //      data.controlParameters->control_mode = K_RECOVERY_STAND;
-
-  //    } else if(rc_mode == RC_mode::LOCOMOTION){
-  //      data.controlParameters->control_mode = K_LOCOMOTION;
-
-  //    } else if(rc_mode == RC_mode::QP_STAND){
-  //      data.controlParameters->control_mode = K_BALANCE_STAND;
-
-  //    } else if(rc_mode == RC_mode::SQUAT_DOWN){
-  //        data.controlParameters->control_mode = K_SQUAT_DOWN;
-
-  //    } else if (rc_mode == RC_mode::STAND_UP){
-  //        data.controlParameters->control_mode = K_STAND_UP;
-  //    }
-
-  // }
-  //std::cout<<data._desiredStateCommand->recovery_trigger<<std::endl;
-  if (data.controlParameters->use_rc == 0)
-  {
-    if (data._desiredStateCommand->gamepadCommand->a || recoverymode)
-    {
-
-      recoverymode = true;
+  if(data.controlParameters->use_rc){
+    printf("control fsmmmmmmmmmmmmmmm \n");
+    int rc_mode = data._desiredStateCommand->rcCommand->mode;
+    rc_mode = RC_mode::RECOVERY_STAND;
+    if(rc_mode == RC_mode::OFF){
+          printf("K_PASSIVE\n");
+          data.controlParameters->control_mode = K_PASSIVE;
+    }else if(rc_mode == RC_mode::RECOVERY_STAND){
       data.controlParameters->control_mode = K_RECOVERY_STAND;
-      if (data._desiredStateCommand->gamepadCommand->x)
-      {
-        recoverymode = false;
-      }
-      
-      
-      
+
+    } else if(rc_mode == RC_mode::LOCOMOTION){
+      data.controlParameters->control_mode = K_LOCOMOTION;
+
+    } else if(rc_mode == RC_mode::QP_STAND){
+      data.controlParameters->control_mode = K_BALANCE_STAND;
+
+    } else if(rc_mode == RC_mode::SQUAT_DOWN){
+        data.controlParameters->control_mode = K_SQUAT_DOWN;
+
+    } else if (rc_mode == RC_mode::STAND_UP){
+        data.controlParameters->control_mode = K_STAND_UP;
     }
-    else if (data._desiredStateCommand->gamepadCommand->x || squatmode)
-    {
-      recoverymode = false;
-      squatmode = true;
-      data.controlParameters->control_mode = K_PASSIVE;
-      
-    }
-    else
-    {
-      data.controlParameters->control_mode = K_PASSIVE;
-      recoverymode = false;
-    }
-    
-    
+
   }
+  // std::cout<<data._desiredStateCommand->recovery_trigger<<std::endl;
+  // if (data.controlParameters->use_rc == 0)
+  // {
+  //   if (data._desiredStateCommand->gamepadCommand->a || recoverymode)
+  //   {
+
+  //     recoverymode = true;
+  //     data.controlParameters->control_mode = K_RECOVERY_STAND;
+  //     if (data._desiredStateCommand->gamepadCommand->x)
+  //     {
+  //       recoverymode = false;
+  //     }
+      
+      
+      
+
+// if (true)
+//   {
+//     // if (time_diff(start_time)>=10000)
+//     // // if (data._desiredStateCommand->gamepadCommand->a || recoverymode)
+//     // {
+      
+//     //   std::cout<<time_diff(start_time)<<std::endl;
+//     //   recoverymode = true;
+//     //   data.controlParameters->control_mode = K_RECOVERY_STAND;
+//     //   if (false)
+//     //   {
+//     //     recoverymode = false;
+//     //   }
+      
+      
+//     //   // printf("[Recovery Balance]recoveeeeeeeeeeeeeeeeeeeeeeeeery\n");
+//     // }
+//     // else if (false)
+//     // {
+//     //   recoverymode = false;
+//     //   squatmode = true;
+//     //   data.controlParameters->control_mode = K_PASSIVE;
+//     //   printf("[Recovery Balance]squaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaat \n");
+//     // }
+//     // else
+//     // {
+//     //   data.controlParameters->control_mode = K_PASSIVE;
+//     //   recoverymode = false;
+//     //   printf("PAAAAAsiiiiiiiiiiiiiv\n");
+//     // }
+//       if ((data._desiredStateCommand->gamepadCommand->a || recoverymode) && !(data._desiredStateCommand->gamepadCommand->b || data._desiredStateCommand->gamepadCommand->x || data._desiredStateCommand->gamepadCommand->y)) {
+//     recoverymode = true;
+//     squatmode = false;
+//     standup_mode = false;
+//     data.controlParameters->control_mode = K_RECOVERY_STAND;
+//     std::cout << "Gamepad button A pressed: Switching to Recovery Stand mode." << std::endl;
+
+// } else if ((data._desiredStateCommand->gamepadCommand->b|| squatmode) && !(data._desiredStateCommand->gamepadCommand->a || data._desiredStateCommand->gamepadCommand->x || data._desiredStateCommand->gamepadCommand->y)) {
+//     squatmode = true;
+//     recoverymode = false;
+//     standup_mode = false;
+//     data.controlParameters->control_mode = K_SQUAT_DOWN;
+//     std::cout << "Gamepad button B pressed: Switching to Squat Down mode." << std::endl;
+
+// } else if ((data._desiredStateCommand->gamepadCommand->x || standup_mode) && !(data._desiredStateCommand->gamepadCommand->a || data._desiredStateCommand->gamepadCommand->b || data._desiredStateCommand->gamepadCommand->y)) {
+//     standup_mode = true;
+//     recoverymode = false;
+//     squatmode = false;
+//     data.controlParameters->control_mode = K_STAND_UP;
+//     std::cout << "Gamepad button X pressed: Switching to Stand Up mode." << std::endl;
+
+// } 
+// else {
+//     standup_mode = false;
+//     recoverymode = false;
+//     squatmode = false;
+//     data.controlParameters->control_mode = K_PASSIVE;
+//     std::cout << "No significant gamepad input: Remaining in Passive mode." << std::endl;
+// }
+    
+    
+//   }
+  //   }
+  //   else if (data._desiredStateCommand->gamepadCommand->x || squatmode)
+  //   {
+  //     recoverymode = false;
+  //     squatmode = true;
+  //     data.controlParameters->control_mode = K_PASSIVE;
+      
+  //   }
+  //   else
+  //   {
+  //     data.controlParameters->control_mode = K_PASSIVE;
+  //     recoverymode = false;
+  //   }
+    
+    
+  //}
 
   // Run the robot control code if operating mode is not unsafe
   if (operatingMode != FSM_OperatingMode::ESTOP) {

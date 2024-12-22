@@ -6,13 +6,13 @@ __collection-name__: user-parameters
 # This collection contains user parameters for the IUST robot.
 
 # For IUST robot
-use_wbc           : 0                   # Flag to indicate whether to use WBIC or not
+use_wbc           : 1                   # Flag to indicate whether to use WBIC or not
 Kp_ori            : [100, 100, 100]     # Proportional gains for the orientation controller
-Kd_ori            : [15, 20, 20]        # Derivative gains for the orientation controller
+Kd_ori            : [10, 10, 10]        # Derivative gains for the orientation controller
 Kp_body           : [100, 100, 100]     # Proportional gains for the body controller
-Kd_body           : [15, 15, 15]        # Derivative gains for the body controller
+Kd_body           : [10, 10, 10]        # Derivative gains for the body controller
 Kp_foot           : [500, 500, 500]     # Proportional gains for the foot controller
-Kd_foot           : [20, 20, 20]        # Derivative gains for the foot controller
+Kd_foot           : [10, 10, 10]        # Derivative gains for the foot controller
 Kp_joint          : [5, 5, 5]           # Proportional gains for the joint controller
 Kd_joint          : [1, 1, 1]           # Derivative gains for the joint controller
 
@@ -28,9 +28,9 @@ Kd_joint          : [1, 1, 1]           # Derivative gains for the joint control
 
 # cMPC
 cmpc_gait         : 9                   # Gait type for cMPC
-Q_pos             : [1, 1, 50]          # Position cost matrix for cMPC
-Q_vel             : [1, 1, 1]           # Velocity cost matrix for cMPC
-Q_ori             : [0, 0, 1]           # Orientation cost matrix for cMPC
+Q_pos             : [20, 20, 20000]         # Position cost matrix for cMPC
+Q_vel             : [0, 0, 0]           # Velocity cost matrix for cMPC
+Q_ori             : [1500, 1900, 900]          # Orientation cost matrix for cMPC
 Q_ang             : [1, 1, 1]           # Angular cost matrix for cMPC
 R                 : 1e-05               # Control cost matrix for cMPC
 cmpc_x_drag       : 3                   # Drag coefficient for cMPC

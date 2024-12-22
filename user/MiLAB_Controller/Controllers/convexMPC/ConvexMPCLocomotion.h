@@ -88,6 +88,8 @@ public:
 
   template<typename T>
   void run(ControlFSMData<T>& data);
+  bool currently_jumping = false;
+
 
   Vec3<float> pBody_des;
   Vec3<float> vBody_des;
@@ -115,11 +117,13 @@ private:
 
   float _x_vel_des = 0.;
   float _y_vel_des = 0.;
+  float _z_vel_des = 0.;
 
   float _body_height;
   float step_height;
   bool milab_flag = false;
-
+  float _body_height_running = 0.29;
+  float _body_height_jumping = 0.36;
 
   void recompute_timing(int iterations_per_mpc);
   void updateMPCIfNeeded(int* mpcTable, ControlFSMData<float>& data, bool omniMode);
@@ -163,6 +167,15 @@ private:
   SparseCMPC _sparseCMPC;
   void outpacket(ControlFSMData<float>& data);
   void readpacket(int iter,StateEstimate<float> state,LegController<float> *data);
+
+  std::vector<double> stair_edges;
+
+  double zpos_sum = 0;
+  //bool ascending = false;
+  float Pframp = 0;
+  float pitch_ascension = -0.34;
+  float pitch_descension = 0.0;
+  //float locomo = 0;
 
 };
 

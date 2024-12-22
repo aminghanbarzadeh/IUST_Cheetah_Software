@@ -3,7 +3,7 @@
 
 #include <eigen3/Eigen/Dense>
 #include "common_types.h"
-
+#include "ConvexMPCLocomotion.h"
 using Eigen::Matrix;
 using Eigen::Quaternionf;
 
@@ -22,9 +22,11 @@ class RobotState
         Quaternionf q;
         fpt yaw;
         fpt m_mini = 9;
-        fpt m_milab = 23;//25.7;
+        fpt m_milab = 13;//25.7;
         fpt m_cheetah3 = 43;
         fpt m;
+        float pitch_ascension1 = -0.34;
+        float pitch_descension1 = 0.0;
         //fpt m = 50.236; //DH
     //private:
 };
