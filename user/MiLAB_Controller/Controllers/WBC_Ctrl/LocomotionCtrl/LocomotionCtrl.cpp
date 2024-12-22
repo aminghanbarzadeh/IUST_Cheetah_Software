@@ -42,7 +42,7 @@ LocomotionCtrl<T>::~LocomotionCtrl(){
 template<typename T>
 void LocomotionCtrl<T>::_ContactTaskUpdate(void* input, ControlFSMData<T> & data){
   _input_data = static_cast<LocomotionCtrlData<T>* >(input);
-
+  printf("[locomotion-ctrllllllllllllllllllll] \n");
   _ParameterSetup(data.userParameters);
   
   // Wash out the previous setup

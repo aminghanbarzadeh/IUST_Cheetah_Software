@@ -107,14 +107,15 @@ void RobotRunner::run() {
     _legController->setEnabled(false);
   } else {
     _legController->setEnabled(true);
-
+    //printf("control modeee %f\n", rc_control.mode);
     if( (rc_control.mode == 0) && controlParameters->use_rc ) {
+      //printf("rcccc-robotrunnerrrrrrrrrrrrrr");
       if(count_ini%1000 ==0)   printf("[RobotRunner] ESTOP mode && use_rc = 1, wait to start...\n");
       for (int leg = 0; leg < 4; leg++) {
         _legController->commands[leg].zero();
       }
       _robot_ctrl->Estop();
-      _legController->setEnabled(false);
+     // _legController->setEnabled(false);
     }else {
       // Controller
 
@@ -211,8 +212,8 @@ void RobotRunner::setupStep() {
     _cheaterModeEnabled = false;
   }
 
-  get_rc_control_settings(&rc_control);
-
+  //get_rc_control_settings(&rc_control);
+  get_js_control_settings(&rc_control);
   // todo safety checks, sanity checks, etc...
 }
 

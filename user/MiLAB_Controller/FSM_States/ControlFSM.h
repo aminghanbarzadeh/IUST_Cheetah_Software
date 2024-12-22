@@ -111,8 +111,9 @@ class ControlFSM {
 
   // Track the number of iterations since last info print
   int printIter = 0;  // make larger than printNum to not print
-  bool recoverymode = false;
   bool squatmode = false;
+  bool recoverymode = false;
+  bool standup_mode = false;
   int iter = 0;
 
   //lcm::LCM state_estimator_lcm;

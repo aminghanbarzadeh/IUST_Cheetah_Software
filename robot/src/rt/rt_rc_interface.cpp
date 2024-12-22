@@ -162,6 +162,7 @@ void sbus_packet_complete() {
 }
 
 bool trigger = mode_edge_trigger.trigger(selected_mode);
+trigger = true;
 if(trigger || selected_mode == RC_mode::OFF || selected_mode == RC_mode::RECOVERY_STAND) {
   if(trigger) {
     printf("MODE TRIGGER!\n");

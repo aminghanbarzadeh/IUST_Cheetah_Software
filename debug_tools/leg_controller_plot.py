@@ -130,7 +130,7 @@ for i in range(4):
         y7, y8, y9 = loadFFF(FILE_NAME, i)
 
     plt.figure(1,figsize=(10,8))
-    # plt.title("footTrajectory/jointAngle")
+    plt.title("footTrajectory/jointAngle")
     plt.subplot(4,3,3*i+1)
     plt.plot(y1)
     plt.plot(y1_des)
@@ -154,7 +154,7 @@ for i in range(4):
 
     if TORQUE_PLOT == True:
         plt.figure(2,figsize=(10,8))
-        # plt.title("estimatedTorque")
+        plt.title("estimatedTorque")
         plt.subplot(4,3,3*i+1)
         plt.plot(y4)
         ax1 = plt.gca()
@@ -175,7 +175,7 @@ for i in range(4):
 
     if FF_F_PLOT == True:
         plt.figure(3,figsize=(10,8))
-        # plt.title("MPCfeedforwardForce")
+        plt.title("MPCfeedforwardForce")
         plt.subplot(4,3,3*i+1)
         plt.plot(y7)
         ax1 = plt.gca()

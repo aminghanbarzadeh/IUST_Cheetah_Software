@@ -30,6 +30,7 @@ size_t ContactConstraint<T>::_CheckContact() {
       if (_collision_list[j]->ContactDetection(_model->_pGC[i], penetration,
                                                cp_frame)) {
         // Contact Happens
+        //std::cout<<"pdataaaaaas"<<_model->_pGC[i]<<std::endl;
         _cp_pos_list.push_back(_model->_pGC[i]);
         _cp_local_force_list.push_back(Vec3<T>::Zero());
         _cp_frame_list.push_back(cp_frame);
