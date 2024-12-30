@@ -85,6 +85,7 @@ void ControlFSM<T>::initialize() {
  */
 template <typename T>
 void ControlFSM<T>::runFSM() {
+
   // Publish state estimator data to other computer
   //for(size_t i(0); i<3; ++i){
     //_state_estimator.p[i] = data._stateEstimator->getResult().position[i];
@@ -94,22 +95,28 @@ void ControlFSM<T>::runFSM() {
   //state_estimator_lcm.publish("state_estimator_ctrl_pc", &_state_estimator);
 
   // Check the robot state for safe operation
+  //printf("before-safety \n");
   operatingMode = safetyPreCheck();
-
+  //printf("operatingmode: %d \n", (int) operatingMode);
+  // printf("before use-rc\n");
   if(data.controlParameters->use_rc){
-    printf("control fsmmmmmmmmmmmmmmm \n");
+    //printf("control fsmmmmmmmmmmmmmmm \n");
     int rc_mode = data._desiredStateCommand->rcCommand->mode;
-    rc_mode = RC_mode::RECOVERY_STAND;
+    //printf("rcmode: %d \n", (int) rc_mode);
+    //rc_mode = RC_mode::RECOVERY_STAND;
     if(rc_mode == RC_mode::OFF){
           printf("K_PASSIVE\n");
           data.controlParameters->control_mode = K_PASSIVE;
     }else if(rc_mode == RC_mode::RECOVERY_STAND){
+      printf("recoveryyyyyyyyyyyyyyyyyyyyyyyy\n");
       data.controlParameters->control_mode = K_RECOVERY_STAND;
 
     } else if(rc_mode == RC_mode::LOCOMOTION){
+      printf("locomotioooooooooooooooooooooon\n");
       data.controlParameters->control_mode = K_LOCOMOTION;
 
     } else if(rc_mode == RC_mode::QP_STAND){
+      //printf("staaaaaaaaaaaaaaaaaaaaaaaaaand\n");
       data.controlParameters->control_mode = K_BALANCE_STAND;
 
     } else if(rc_mode == RC_mode::SQUAT_DOWN){
@@ -221,6 +228,8 @@ void ControlFSM<T>::runFSM() {
     if (operatingMode == FSM_OperatingMode::NORMAL) {
       // Check the current state for any transition
       nextStateName = currentState->checkTransition();
+      // std::cout << "nextStateName:" << (int) nextStateName << std::endl;
+      // std::cout << "StateName:" << (int) currentState->stateName << std::endl;
 
       // Detect a commanded transition
       if (nextStateName != currentState->stateName) {
@@ -234,8 +243,10 @@ void ControlFSM<T>::runFSM() {
         //printInfo(1);
 
       } else {
+
         // Run the iteration for the current state normally
         currentState->run();
+
       }
     }
 

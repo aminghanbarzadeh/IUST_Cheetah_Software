@@ -37,7 +37,7 @@ ground-plane:
     mu: 0.7
     restitution: 0
     depth: 0.45
-    width: 0.6
+    width: 2
     height: .1
     position:  [1.175, 0, 0.48]
     orientation: [0,.0,0]  # roll pitch yaw
@@ -45,17 +45,17 @@ ground-plane:
 
 #stairs-1:
     type: "stairs"
-    steps: 8
-    rise: 0.01778 # 7 inches
-    run: 0.2794 # 11 inches
-    width: 0.5
+    steps: 5
+    rise: 0.05 # 7 inches
+    run: 0.2 # 11 inches
+    width: 2
     mu: .7
     restitution: 0
-    position: [1,-2,0.]
+    position: [0.3,0,0.]
     orientation: [0,0, 0] #1.57=default
     transparent: 0
 
-slopes-1:
+#slopes-1:
     type: "slopes"
     length: 2
     width: 1.2

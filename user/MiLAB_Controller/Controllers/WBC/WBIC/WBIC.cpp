@@ -209,14 +209,16 @@ void WBIC<T>::_GetSolution(const DVec<T>& qddot, DVec<T>& cmd) {
       _data->_Fr[i] = z[i + _dim_floating] + _Fr_des[i];
     tot_tau =
       WB::A_ * qddot + WB::cori_ + WB::grav_ - _Jc.transpose() * _data->_Fr;
-
+      //std::cout << "only force tau" << - _Jc.transpose() * _data->_Fr << std::endl;
+      //std::cout << "tot tau" <<  tot_tau << std::endl;
   } else {
-    tot_tau = WB::A_ * qddot + WB::cori_ + WB::grav_;
+    //tot_tau = WB::A_ * qddot + WB::cori_ + WB::grav_;
+    printf("in elseeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\n");
   }
   _data->_qddot = qddot;
   cmd = tot_tau.tail(WB::num_act_joint_);
   for (int i = 0; i < 4; ++i) {
-      printf("[%d leg] torque: %f,%f,%f\n", i, cmd[i * 3 + 0], cmd[i * 3 + 1], cmd[i * 3 + 2]);
+      //printf("[%d leg] torque: %f,%f,%f\n", i, cmd[i * 3 + 0], cmd[i * 3 + 1], cmd[i * 3 + 2]);
       for (int j = 0; j < 3; ++j) {
           if (abs(cmd[i * 3 + j]) > 1000 && j==0) {
               if (i==0 || i ==2) cmd[i*3+j] = 4.;
