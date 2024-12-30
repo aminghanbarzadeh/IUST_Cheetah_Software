@@ -50,8 +50,8 @@ void FSM_State_BalanceStand<T>::onEnter() {
     && _ini_body_pos[2] < 0.25) {
       _ini_body_pos[2] = 0.30;
   }else if(this->_data->_quadruped->_robotType == RobotType::IUST
-    && _ini_body_pos[2] > 0.40) {
-    _ini_body_pos[2] = 0.40;
+    && _ini_body_pos[2] > 0.35) {
+    _ini_body_pos[2] = 0.35;
   }
 
   last_height_command = _ini_body_pos[2];
@@ -69,7 +69,7 @@ void FSM_State_BalanceStand<T>::run() {
   contactState<< 0.5, 0.5, 0.5, 0.5;
   this->_data->_stateEstimator->setContactPhase(contactState);
   BalanceStandStep();
-  printf("[balance stand] iusttttttttttttt#######################3 \n");
+  //printf("[balance stand] iusttttttttttttt#######################3 \n");
 }
 
 /**
@@ -241,6 +241,7 @@ template <typename T>
 void FSM_State_BalanceStand<T>::BalanceStandStep() {
 
   _wbc_data->pBody_des = _ini_body_pos;
+  //_wbc_data->pBody_des[0] += 0.002;
   _wbc_data->vBody_des.setZero();
   _wbc_data->aBody_des.setZero();
 //  _wbc_data->pBody_des[2] = 0.505;
@@ -251,6 +252,8 @@ void FSM_State_BalanceStand<T>::BalanceStandStep() {
     _wbc_data->pBody_RPY_des[0] = rc_cmd->rpy_des[0] * rollLimit;
     _wbc_data->pBody_RPY_des[1] = rc_cmd->rpy_des[1] * pitchLimit;
     _wbc_data->pBody_RPY_des[2] -= rc_cmd->rpy_des[2] * yawLimit;
+
+    //std::cout << "initial y " << _ini_body_pos[1] << std::endl;
 //      float _body_height = 0.;
 //      _body_height += rc_cmd->height_variation * 0.08;
 //      float step_height = rc_cmd->step_height*0.1;
@@ -260,6 +263,7 @@ void FSM_State_BalanceStand<T>::BalanceStandStep() {
     _wbc_data->pBody_des[2] += 0.10 * rc_cmd->height_variation;
   }else{ // in simulation
     // Orientation
+    std::cout << "initial " << _wbc_data->pBody_des << std::endl;
     _wbc_data->pBody_RPY_des[0] = 
       this->_data->_desiredStateCommand->gamepadCommand->leftStickAnalog[0] * rollLimit;
      _wbc_data->pBody_RPY_des[1] = 

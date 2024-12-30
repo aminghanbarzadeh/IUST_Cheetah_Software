@@ -55,6 +55,7 @@ void DesiredStateCommand<T>::convertToStateCommands() {
     }else{
       joystickLeft.setZero();
       joystickRight.setZero();
+      
     }
   } else { // No Remote Controller
     joystickLeft = gamepadCommand->leftStickAnalog;
@@ -65,6 +66,8 @@ void DesiredStateCommand<T>::convertToStateCommands() {
     //ground_trigger = gamepadCommand->b;
     cancel_trigger = gamepadCommand->rightBumper;
     stair_trigger = gamepadCommand->y;
+
+    //printf("gamepad in desiredstatecommand\n");
   }
   // Warning!!!!
   // Recommend not to use stateDes

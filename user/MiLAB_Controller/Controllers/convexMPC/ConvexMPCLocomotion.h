@@ -114,7 +114,7 @@ private:
 
   float _roll_des;
   float _pitch_des;
-
+  float x_vel_cmd=0, y_vel_cmd=0, z_vel_cmd = 0;
   float _x_vel_des = 0.;
   float _y_vel_des = 0.;
   float _z_vel_des = 0.;
@@ -173,7 +173,7 @@ private:
   double zpos_sum = 0;
   //bool ascending = false;
   float Pframp = 0;
-  float pitch_ascension = -0.34;
+  float pitch_ascension = -0.25;
   float pitch_descension = 0.0;
   //float locomo = 0;
 

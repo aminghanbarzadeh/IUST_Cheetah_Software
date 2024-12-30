@@ -267,7 +267,7 @@ void SimulationBridge::run_sbus() {
       //int x = receive_sbus(port);
 
     int x = receive_data(port);
-      if (x == 0) {
+      if (x) {
         // sbus_packet_complete();
         update_joystick();
       }

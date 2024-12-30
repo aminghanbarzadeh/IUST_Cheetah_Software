@@ -45,6 +45,7 @@ struct LegControllerData {
   void zero();
   Mat6<T> JJ;
   Vec3<T> q, qd, p, v;
+  Vec3<T> taudata;
   Mat3<T> J;
   Vec3<T> tauEstimate;
   Quadruped<T>* quadruped;

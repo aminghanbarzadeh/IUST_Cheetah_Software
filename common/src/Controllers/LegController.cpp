@@ -179,6 +179,7 @@ void LegController<T>::updateData(const TiBoardData* tiBoardData) {
       computeLegJacobianAndPosition<T>(_quadruped, datas[leg].q, &datas[leg].J,
                                        nullptr, leg);
       datas[leg].tauEstimate[joint] = tiBoardData[leg].tau[joint];
+      
     }
     //printf("%d leg, position: %f, %f, %f\n", leg, datas[leg].p[0], datas[leg].p[1], datas[leg].p[2]);
     //printf("%d leg, velocity: %f, %f, %f\n", leg, datas[leg].v[0], datas[leg].v[1], datas[leg].v[2]);
@@ -216,6 +217,7 @@ void LegController<T>::updateCommand(SpiCommand* spiCommand) {
 //        }
 //    }else{
         legTorque += datas[leg].J.transpose() * footForce;
+        datas[leg]. taudata = legTorque; 
 //    }
 
 
