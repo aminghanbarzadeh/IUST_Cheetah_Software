@@ -23,10 +23,10 @@ class RobotState
         Quaternionf q;
         fpt yaw;
         fpt m_mini = 9;
-        fpt m_milab = 13;//25.7;
+        fpt m_milab = 11.5;//25.7;
         fpt m_cheetah3 = 43;
         fpt m;
-        float pitch_ascension1 = -0.25;
+        float pitch_ascension1 = 0.0;
         float pitch_descension1 = 0.0;
         //fpt m = 50.236; //DH
     //private:

@@ -241,7 +241,7 @@ TransitionData<T> FSM_State_BackFlip<T>::transition() {
 
 
     default:
-      std::cout << "[CONTROL FSM] Something went wrong in transition"
+      std::cout << "[CONTROL FSM] Something went wrong in transition backflip"
                 << std::endl;
   }
 

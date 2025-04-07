@@ -239,7 +239,7 @@ TransitionData<T> FSM_State_FrontJump<T>::transition() {
 
 
     default:
-      std::cout << "[CONTROL FSM] Something went wrong in transition"
+      std::cout << "[CONTROL FSM] Something went wrong in transition fj"
                 << std::endl;
   }
 

@@ -8,13 +8,13 @@ __collection-name__: user-parameters
 # For IUST robot
 use_wbc           : 1                   # Flag to indicate whether to use WBIC or not
 Kp_ori            : [100, 100, 100]     # Proportional gains for the orientation controller
-Kd_ori            : [5, 5, 5]        # Derivative gains for the orientation controller
+Kd_ori            : [10, 10, 10]        # Derivative gains for the orientation controller
 Kp_body           : [100, 100, 100]     # Proportional gains for the body controller
-Kd_body           : [5, 5, 5]        # Derivative gains for the body controller
+Kd_body           : [10, 10, 10]        # Derivative gains for the body controller
 Kp_foot           : [500, 500, 500]     # Proportional gains for the foot controller
-Kd_foot           : [5, 5, 5]        # Derivative gains for the foot controller
-Kp_joint          : [5, 5, 5]           # Proportional gains for the joint controller
-Kd_joint          : [1, 1, 1]           # Derivative gains for the joint controller
+Kd_foot           : [10, 10, 10]        # Derivative gains for the foot controller
+Kp_joint          : [3, 3, 3]           # Proportional gains for the joint controller
+Kd_joint          : [1, 0.2, 0.2]           # Derivative gains for the joint controller
 
 # For Mini-Cheetah
 #Kp_body           : [100, 100, 100]

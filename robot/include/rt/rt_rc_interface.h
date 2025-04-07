@@ -28,6 +28,7 @@ namespace RC_mode{
   constexpr int VISION = 6;
   constexpr int LOCOMOTION = 11;
   constexpr int RECOVERY_STAND = 12;
+  constexpr int RL_LOCOMOTION = 7;
 
   // Experiment Mode
   constexpr int TWO_LEG_STANCE_PRE = 20;

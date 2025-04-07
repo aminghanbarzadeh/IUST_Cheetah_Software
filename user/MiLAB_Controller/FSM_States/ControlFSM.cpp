@@ -48,6 +48,7 @@ ControlFSM<T>::ControlFSM(Quadruped<T>* _quadruped,
   statesList.standUp = new FSM_State_StandUp<T>(&data);
   statesList.balanceStand = new FSM_State_BalanceStand<T>(&data);
   statesList.locomotion = new FSM_State_Locomotion<T>(&data);
+  statesList.RL_locomotion = new FSM_State_RL_Locomotion<T>(&data);
   statesList.recoveryStand = new FSM_State_RecoveryStand<T>(&data);
   statesList.vision = new FSM_State_Vision<T>(&data);
   statesList.backflip = new FSM_State_BackFlip<T>(&data);
@@ -110,9 +111,10 @@ void ControlFSM<T>::runFSM() {
     }else if(rc_mode == RC_mode::RECOVERY_STAND){
       printf("recoveryyyyyyyyyyyyyyyyyyyyyyyy\n");
       data.controlParameters->control_mode = K_RECOVERY_STAND;
-
+    }else if(rc_mode == RC_mode::RL_LOCOMOTION){
+      data.controlParameters->control_mode = K_RL_LOCOMOTION;  
     } else if(rc_mode == RC_mode::LOCOMOTION){
-      printf("locomotioooooooooooooooooooooon\n");
+      // printf("locomotioooooooooooooooooooooon\n");
       data.controlParameters->control_mode = K_LOCOMOTION;
 
     } else if(rc_mode == RC_mode::QP_STAND){
@@ -369,6 +371,9 @@ FSM_State<T>* ControlFSM<T>::getNextState(FSM_StateName stateName) {
 
     case FSM_StateName::LOCOMOTION:
       return statesList.locomotion;
+    
+    case FSM_StateName::RL_LOCOMOTION:
+      return statesList.RL_locomotion;
 
     case FSM_StateName::RECOVERY_STAND:
       return statesList.recoveryStand;

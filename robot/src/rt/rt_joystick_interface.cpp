@@ -157,6 +157,9 @@ void update_joystick() {
             case 5:
                 selected_mode = RC_mode::SQUAT_DOWN;
                 break;
+            case 7: // Start button
+                selected_mode = RC_mode::RL_LOCOMOTION;
+                break;
 
             default:
                 printf("[Joystick Interface] unknown button\n");
@@ -196,8 +199,26 @@ void update_joystick() {
             js_control.omega_des[0] = 0;
             js_control.omega_des[1] = 0;
             js_control.omega_des[2] = -w_scale * axes[1].x;
+            // printf("yaw in locomotion: %f \n", js_control.omega_des[2]);
             //js_control.omega_des[2] = -v_scale * data.right_stick[0];
-        } else if (selected_mode == RC_mode::QP_STAND) {
+        }else if (selected_mode == RC_mode::RL_LOCOMOTION) {
+            js_control.variable[0] = gait_table[mode_id];
+            //js_control.v_des[0] = v_scale * axes[0].x * 0.5;
+            //js_control.v_des[1] = v_scale * axes[0].y * -1.;
+            js_control.v_des[0] = -v_scale * axes[0].y;
+            js_control.v_des[1] = -v_scale * axes[0].x;
+            js_control.v_des[2] = 0;
+
+            js_control.height_variation = axes[1].y;
+            //js_control.p_des[2] = 0.27 + 0.08 * axes[2].y; // todo or not todo?
+
+            js_control.omega_des[0] = 0;
+            js_control.omega_des[1] = 0;
+            js_control.omega_des[2] = -w_scale * axes[1].x;
+            // printf("yaw in locomotion: %f \n", js_control.omega_des[2]);
+            //js_control.omega_des[2] = -v_scale * data.right_stick[0];
+        }
+         else if (selected_mode == RC_mode::QP_STAND) {
             //js_control.rpy_des[0] = axes[0].y * 1.4;
             //js_control.rpy_des[1] = axes[1].x * 0.46;
             printf("roll angle %f \n", js_control.rpy_des[0]);

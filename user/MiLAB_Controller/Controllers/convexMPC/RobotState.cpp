@@ -31,7 +31,7 @@ void RobotState::set(flt* p_, flt* v_, flt* q_, flt* w_, flt* r_,flt yaw_)
     fpt ys = sin(yaw_);
 
 
-    if (true)
+    if (false)
     {
         const fpt ps = sin(pitch_ascension1);
         const fpt pc = cos(pitch_ascension1);

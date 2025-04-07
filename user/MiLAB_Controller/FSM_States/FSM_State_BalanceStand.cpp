@@ -57,7 +57,7 @@ void FSM_State_BalanceStand<T>::onEnter() {
   last_height_command = _ini_body_pos[2];
 
   _ini_body_ori_rpy = (this->_data->_stateEstimator->getResult()).rBody * (this->_data->_stateEstimator->getResult()).rpy;
-  _body_weight = this->_data->_quadruped->_bodyMass * 9.81;
+  _body_weight = (this->_data->_quadruped->_bodyMass) * 9.81;
 }
 
 /**
@@ -134,6 +134,17 @@ FSM_StateName FSM_State_BalanceStand<T>::checkTransition() {
 
       // Set the next gait in the scheduler to
       this->_data->_gaitScheduler->gaitData._nextGait = GaitType::TROT;
+      break;
+    
+    case K_RL_LOCOMOTION:
+      // Requested change to balance stand
+      this->nextStateName = FSM_StateName::RL_LOCOMOTION;
+
+      // Transition instantaneously to locomotion state on request
+      this->transitionDuration = 0.0;
+
+      // Set the next gait in the scheduler to
+      // this->_data->_gaitScheduler->gaitData._nextGait = GaitType::TROT;
       break;
 
     case K_PASSIVE:
@@ -218,7 +229,7 @@ TransitionData<T> FSM_State_BalanceStand<T>::transition() {
       break;*/
 
     default:
-      std::cout << "[CONTROL FSM] Something went wrong in transition"
+      std::cout << "[CONTROL FSM] Something went wrong in transition balance"
                 << std::endl;
   }
 
@@ -249,9 +260,9 @@ void FSM_State_BalanceStand<T>::BalanceStandStep() {
   if(this->_data->controlParameters->use_rc){ // remote controller in reality
     const rc_control_settings* rc_cmd = this->_data->_desiredStateCommand->rcCommand;
     // Orientation
-    _wbc_data->pBody_RPY_des[0] = rc_cmd->rpy_des[0] * rollLimit;
-    _wbc_data->pBody_RPY_des[1] = rc_cmd->rpy_des[1] * pitchLimit;
-    _wbc_data->pBody_RPY_des[2] -= rc_cmd->rpy_des[2] * yawLimit;
+    _wbc_data->pBody_RPY_des[0] = 0.5*rc_cmd->rpy_des[0] * rollLimit;
+    _wbc_data->pBody_RPY_des[1] = 0.5*rc_cmd->rpy_des[1] * pitchLimit;
+    _wbc_data->pBody_RPY_des[2] -= 0.5*rc_cmd->rpy_des[2] * yawLimit;
 
     //std::cout << "initial y " << _ini_body_pos[1] << std::endl;
 //      float _body_height = 0.;
@@ -260,7 +271,7 @@ void FSM_State_BalanceStand<T>::BalanceStandStep() {
 //      printf("step height：%f\n", step_height);
 //      printf("body height：%f\n", _body_height);
     // Height
-    _wbc_data->pBody_des[2] += 0.10 * rc_cmd->height_variation;
+    _wbc_data->pBody_des[2] += 0.05 * rc_cmd->height_variation;
   }else{ // in simulation
     // Orientation
     std::cout << "initial " << _wbc_data->pBody_des << std::endl;

@@ -36,8 +36,8 @@ FSM_State_RecoveryStand<T>::FSM_State_RecoveryStand(ControlFSMData<T>* _controlF
       fold_jpos[3] << 0.0f, -1.6f, 2.55f;
       // Stand Up
       for(size_t i(0); i<4; ++i){
-//          stand_jpos[i] << 0.f, -0.92f, 1.6f;
-          stand_jpos[i] << 0.f, -0.78f, 1.36f;
+         stand_jpos[i] << 0.f, -0.92f, 1.6f;
+          // stand_jpos[i] << 0.f, -0.78f, 1.36f;
       }
       // Rolling
       rolling_jpos[0] << -1.3f, -1.8f, 2.8f;
@@ -317,6 +317,11 @@ FSM_StateName FSM_State_RecoveryStand<T>::checkTransition() {
 
   // Switch FSM control mode 0,1,2,3,4,6
   switch ((int)this->_data->controlParameters->control_mode) {
+
+    case K_RL_LOCOMOTION: 
+      this->nextStateName = FSM_StateName::RL_LOCOMOTION;
+      break;
+
     case K_RECOVERY_STAND:
       break;
 
@@ -373,6 +378,10 @@ TransitionData<T> FSM_State_RecoveryStand<T>::transition() {
       this->transitionData.done = true;
       break;
 
+    case FSM_StateName::RL_LOCOMOTION:
+      this->transitionData.done = true;
+      break;
+
     case FSM_StateName::SQUAT_DOWN:
        this->transitionData.done = true;
        break;
@@ -382,7 +391,7 @@ TransitionData<T> FSM_State_RecoveryStand<T>::transition() {
        break;
 
     default:
-      std::cout << "[CONTROL FSM] Something went wrong in transition"
+      std::cout << "[CONTROL FSM] Something went wrong in transition recovery"
                 << std::endl;
   }
 

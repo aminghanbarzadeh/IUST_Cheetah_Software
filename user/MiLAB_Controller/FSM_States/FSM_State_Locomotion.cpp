@@ -22,7 +22,7 @@ FSM_State_Locomotion<T>::FSM_State_Locomotion(ControlFSMData<T>* _controlFSMData
 {
         float fmax;
     if(_controlFSMData->_quadruped->_robotType == RobotType::IUST){
-        fmax = 120;
+        fmax = 60;
         cMPCOld = new ConvexMPCLocomotion(_controlFSMData->controlParameters->controller_dt,
                 30 / (1000. * _controlFSMData->controlParameters->controller_dt),
                 _controlFSMData->userParameters, fmax, _controlFSMData->_quadruped->_robotType);
@@ -168,7 +168,7 @@ TransitionData<T> FSM_State_Locomotion<T>::transition() {
 
 
     default:
-      std::cout << "[CONTROL FSM] Something went wrong in transition"
+      std::cout << "[CONTROL FSM] Something went wrong in transition locomotion"
                 << std::endl;
   }
 

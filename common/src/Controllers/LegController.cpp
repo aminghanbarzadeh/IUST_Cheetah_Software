@@ -20,9 +20,9 @@ using namespace std;
 template <typename T>
 void LegController<T>::output2File(){
         ofstream leg_data;
-        leg_data.open("/home/aminghanbarzadeh/IUST-Cheetah-Software/debug_tools/leg_controller_data.txt", ios::app);
+        leg_data.open("/home/lenovo/projects/IUST_SIM/IUST_Cheetah_Software/debug_tools/leg_controller_data.txt", ios::app);
         if (!leg_data.is_open()) {
-            cout << "[LegController] Open leg_control_data.txt failed!" << endl;
+            // cout << "[LegController] Open leg_control_data.txt failed!" << endl;
         } else {
             for (int leg = 0; leg < 4; leg++) {
                 leg_data << leg << " " << datas[leg].q[0] << " " << datas[leg].q[1] << " " << datas[leg].q[2] << " ";
@@ -30,6 +30,7 @@ void LegController<T>::output2File(){
                          << " ";
                 leg_data << datas[leg].tauEstimate[0] << " " << datas[leg].tauEstimate[1] << " "
                          << datas[leg].tauEstimate[2] << " ";
+                leg_data << commands[leg].tauFeedForward[0] << " " << commands[leg].tauFeedForward[1] << " " << commands[leg].tauFeedForward[2] << " "; 
             }
             leg_data << commands[0].kpJoint(0, 0) << " " << commands[0].kpJoint(1, 1) << " "
                      << commands[0].kpJoint(2, 2) << " ";
@@ -158,6 +159,7 @@ void LegController<T>::updateData(const SpiData* spiData) {
                                              &(datas[leg].p), leg);
 
             // v
+            // printf("x,y,z = %f,%f,%f\n",datas[leg].p[0],datas[leg].p[1],datas[leg].p[2]);
             datas[leg].v = datas[leg].J * datas[leg].qd;
 //        }
     }
@@ -204,7 +206,7 @@ void LegController<T>::updateCommand(SpiCommand* spiCommand) {
     footForce +=
         commands[leg].kdCartesian * (commands[leg].vDes - datas[leg].v);
     //std::cout<<"footforceeeeeeeee \n"<<footForce<<std::endl;
-    // std::cout<<"kpcartesian"<<commands[leg].kpCartesian<<std::endl;
+    // std::cout<<"kpjoint"<<commands[leg].kdJoint(0, 0)<<std::endl;
     // std::cout<<"pdataaaaaas"<<datas[leg].p<<std::endl;
     // std::cout<<"pdessssssss"<<commands[leg].pDes<<std::endl;
     // Torque
