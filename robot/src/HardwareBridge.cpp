@@ -114,6 +114,7 @@ void HardwareBridge::handleGamepadLCM(const lcm::ReceiveBuffer* rbuf,
                                       const gamepad_lcmt* msg) {
   (void)rbuf;
   (void)chan;
+  printf("[LCM] SUCCESS! HardwareBridge received LCM Message on channel: %s | A: %d, B: %d\n", chan.c_str(), msg->a, msg->b);
   _gamepadCommand.set(msg);
 }
 
