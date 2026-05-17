@@ -127,100 +127,44 @@ void ControlFSM<T>::runFSM() {
     }
 
   }
-  // std::cout<<data._desiredStateCommand->recovery_trigger<<std::endl;
-  // if (data.controlParameters->use_rc == 0)
-  // {
-  //   if (data._desiredStateCommand->gamepadCommand->a || recoverymode)
-  //   {
 
-  //     recoverymode = true;
-  //     data.controlParameters->control_mode = K_RECOVERY_STAND;
-  //     if (data._desiredStateCommand->gamepadCommand->x)
-  //     {
-  //       recoverymode = false;
-  //     }
-      
-      
-      
+  if (data.controlParameters->use_rc == 0) {
+    if ((data._desiredStateCommand->gamepadCommand->a || recoverymode) && !(data._desiredStateCommand->gamepadCommand->b || data._desiredStateCommand->gamepadCommand->x || data._desiredStateCommand->gamepadCommand->y)) {
+      recoverymode = true;
+      squatmode = false;
+      standup_mode = false;
+      data.controlParameters->control_mode = K_RECOVERY_STAND;
+      // std::cout << "Gamepad button A pressed: Switching to Recovery Stand mode." << std::endl;
 
-// if (true)
-//   {
-//     // if (time_diff(start_time)>=10000)
-//     // // if (data._desiredStateCommand->gamepadCommand->a || recoverymode)
-//     // {
-      
-//     //   std::cout<<time_diff(start_time)<<std::endl;
-//     //   recoverymode = true;
-//     //   data.controlParameters->control_mode = K_RECOVERY_STAND;
-//     //   if (false)
-//     //   {
-//     //     recoverymode = false;
-//     //   }
-      
-      
-//     //   // printf("[Recovery Balance]recoveeeeeeeeeeeeeeeeeeeeeeeeery\n");
-//     // }
-//     // else if (false)
-//     // {
-//     //   recoverymode = false;
-//     //   squatmode = true;
-//     //   data.controlParameters->control_mode = K_PASSIVE;
-//     //   printf("[Recovery Balance]squaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaat \n");
-//     // }
-//     // else
-//     // {
-//     //   data.controlParameters->control_mode = K_PASSIVE;
-//     //   recoverymode = false;
-//     //   printf("PAAAAAsiiiiiiiiiiiiiv\n");
-//     // }
-//       if ((data._desiredStateCommand->gamepadCommand->a || recoverymode) && !(data._desiredStateCommand->gamepadCommand->b || data._desiredStateCommand->gamepadCommand->x || data._desiredStateCommand->gamepadCommand->y)) {
-//     recoverymode = true;
-//     squatmode = false;
-//     standup_mode = false;
-//     data.controlParameters->control_mode = K_RECOVERY_STAND;
-//     std::cout << "Gamepad button A pressed: Switching to Recovery Stand mode." << std::endl;
+    } else if ((data._desiredStateCommand->gamepadCommand->b || squatmode) && !(data._desiredStateCommand->gamepadCommand->a || data._desiredStateCommand->gamepadCommand->x || data._desiredStateCommand->gamepadCommand->y)) {
+      squatmode = true;
+      recoverymode = false;
+      standup_mode = false;
+      data.controlParameters->control_mode = K_SQUAT_DOWN;
+      // std::cout << "Gamepad button B pressed: Switching to Squat Down mode." << std::endl;
 
-// } else if ((data._desiredStateCommand->gamepadCommand->b|| squatmode) && !(data._desiredStateCommand->gamepadCommand->a || data._desiredStateCommand->gamepadCommand->x || data._desiredStateCommand->gamepadCommand->y)) {
-//     squatmode = true;
-//     recoverymode = false;
-//     standup_mode = false;
-//     data.controlParameters->control_mode = K_SQUAT_DOWN;
-//     std::cout << "Gamepad button B pressed: Switching to Squat Down mode." << std::endl;
+    } else if ((data._desiredStateCommand->gamepadCommand->x || standup_mode) && !(data._desiredStateCommand->gamepadCommand->a || data._desiredStateCommand->gamepadCommand->b || data._desiredStateCommand->gamepadCommand->y)) {
+      standup_mode = true;
+      recoverymode = false;
+      squatmode = false;
+      data.controlParameters->control_mode = K_STAND_UP;
+      // std::cout << "Gamepad button X pressed: Switching to Stand Up mode." << std::endl;
 
-// } else if ((data._desiredStateCommand->gamepadCommand->x || standup_mode) && !(data._desiredStateCommand->gamepadCommand->a || data._desiredStateCommand->gamepadCommand->b || data._desiredStateCommand->gamepadCommand->y)) {
-//     standup_mode = true;
-//     recoverymode = false;
-//     squatmode = false;
-//     data.controlParameters->control_mode = K_STAND_UP;
-//     std::cout << "Gamepad button X pressed: Switching to Stand Up mode." << std::endl;
+    } else if (data._desiredStateCommand->gamepadCommand->y) {
+      standup_mode = false;
+      recoverymode = false;
+      squatmode = false;
+      data.controlParameters->control_mode = K_LOCOMOTION;
+      // std::cout << "Gamepad button Y pressed: Switching to Locomotion mode." << std::endl;
 
-// } 
-// else {
-//     standup_mode = false;
-//     recoverymode = false;
-//     squatmode = false;
-//     data.controlParameters->control_mode = K_PASSIVE;
-//     std::cout << "No significant gamepad input: Remaining in Passive mode." << std::endl;
-// }
-    
-    
-//   }
-  //   }
-  //   else if (data._desiredStateCommand->gamepadCommand->x || squatmode)
-  //   {
-  //     recoverymode = false;
-  //     squatmode = true;
-  //     data.controlParameters->control_mode = K_PASSIVE;
-      
-  //   }
-  //   else
-  //   {
-  //     data.controlParameters->control_mode = K_PASSIVE;
-  //     recoverymode = false;
-  //   }
-    
-    
-  //}
+    } else if (data._desiredStateCommand->gamepadCommand->rightBumper) {
+      standup_mode = false;
+      recoverymode = false;
+      squatmode = false;
+      data.controlParameters->control_mode = K_PASSIVE;
+      // std::cout << "Gamepad right Bumper pressed: Switching to Passive mode." << std::endl;
+    }
+  }
 
   // Run the robot control code if operating mode is not unsafe
   if (operatingMode != FSM_OperatingMode::ESTOP) {
