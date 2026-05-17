@@ -13,11 +13,11 @@ def main():
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind(('0.0.0.0', args.port))
 
-    # Initialize local LCM
-    lc = lcm.LCM()
+    # Initialize local LCM exactly how the C++ code does (utilities.cpp: getLcmUrl(255))
+    lc = lcm.LCM("udpm://239.255.76.67:7667?ttl=255")
 
     print(f"Listening for direct UDP packets on port {args.port}...")
-    print("Publishing to local LCM channel 'interface'.")
+    print("Publishing to local LCM channel 'interface' at udpm://239.255.76.67:7667?ttl=255")
 
     try:
         while True:
@@ -47,6 +47,9 @@ def main():
                 msg.rightStickAnalog = [unpacked[16], unpacked[17]]
 
                 lc.publish("interface", msg.encode())
+
+                # Debug print to ensure data is making it to the UP board successfully
+                # print(f"Received -> A:{msg.a} B:{msg.b} X:{msg.x} Y:{msg.y}")
             else:
                 print(f"Received malformed packet of size {len(data)} from {addr}")
 
